@@ -7,10 +7,20 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
+       - uses: jungwinter/split@v2
+        id: split
+        with:
+          msg: 'api_1.0'
+          separator: '_'
+
+      - name: release package
+        if: steps.split.outputs.length == 2
+          run: echo "Image is ${{steps.split.outputs._0}} and version is ${{steps.split.outputs._1}}"
+
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - run: echo "T${{github.ref_name}}"
+      - run: echo "The tag name is ${{github.ref_name}}"
       - name: Check out repository code
         uses: actions/checkout@v3
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
