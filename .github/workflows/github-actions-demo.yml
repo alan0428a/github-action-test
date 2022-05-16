@@ -48,7 +48,7 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{needs.Parsing.outputs.image}}:${{needs.Parsing.outputs.version}}
+          docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{needs.Parsing.outputs.image}}:${{needs.Parsing.outputs.version}} -f ConsoleApp\ConsoleApp\Dockerfile .\ConsoleApp
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{needs.Parsing.outputs.image}}:${{needs.Parsing.outputs.version}}
 
 
