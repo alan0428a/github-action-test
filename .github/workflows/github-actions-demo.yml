@@ -10,7 +10,7 @@ jobs:
       - uses: jungwinter/split@v2
         id: split
         with:
-          msg: 'api_1.0'
+          msg: '${{github.ref_name}}'
           separator: '_'
 
       - name: release package
