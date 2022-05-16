@@ -7,7 +7,7 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-       - uses: jungwinter/split@v2
+      - uses: jungwinter/split@v2
         id: split
         with:
           msg: 'api_1.0'
