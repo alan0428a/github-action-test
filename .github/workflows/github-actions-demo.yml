@@ -15,15 +15,19 @@ jobs:
         with:
           msg: '${{github.ref_name}}'
           separator: '_'
-
+          
+      - name: Check Status
+        if: steps.split.outputs.length != 2
+        run: exit 1
+        
       - name: Parsing Tag
         id: parsing
         if: steps.split.outputs.length == 2
-        run: echo "Image is ${{steps.split.outputs._0}} and version is ${{steps.split.outputs._1}}"
-        run: echo "::set-output name=image::${{steps.split.outputs._0}}"
-        run: echo "::set-output name=version::${{steps.split.outputs._1}}"
-        if: steps.split.outputs.length != 2
-        run: exit 1
+        run: | 
+          echo "Image is ${{steps.split.outputs._0}} and version is ${{steps.split.outputs._1}}"
+          echo "::set-output name=image::${{steps.split.outputs._0}}"
+          echo "::set-output name=version::${{steps.split.outputs._1}}"
+
   Build:
     needs: Parsing
     runs-on: ubuntu-latest
